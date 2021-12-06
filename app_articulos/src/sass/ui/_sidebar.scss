@@ -1,0 +1,25 @@
+.sidebar{
+    background-color: $blanco;
+    @include adaptar(768px){
+        height: 100vh;
+    }
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h1{
+        text-align: center;
+        font-size: 4rem;
+        margin-bottom: 4rem;
+        span{
+        
+            font-weight: normal;
+        }
+    }
+    
+    a{
+        text-decoration: none;
+        font-size: 2.2rem;
+    }
+}

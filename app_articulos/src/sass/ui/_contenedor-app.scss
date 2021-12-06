@@ -1,0 +1,6 @@
+.contenedor-app{
+   @include adaptar(768px){
+    display: grid;
+    grid-template-columns: .7fr 3fr;
+   }
+}
