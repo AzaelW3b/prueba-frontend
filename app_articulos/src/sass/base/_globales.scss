@@ -1,0 +1,18 @@
+html{
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+
+*,*::after, *::before{
+    box-sizing: inherit;
+}
+
+body{
+    font-family: $fuente;
+    font-size: 1.6rem;
+}
+.contenedor{
+    max-width: 120rem;
+    margin: 0 auto;
+    width: 95%;
+}

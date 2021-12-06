@@ -1,0 +1,5 @@
+@mixin adapatar($tamanio){
+    @media(min-width:$tamanio){
+        @content;
+    }
+}
