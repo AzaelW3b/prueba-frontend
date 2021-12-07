@@ -3,11 +3,11 @@ import ArticulosContext from '../../context/articulos/ArticulosContext';
 const NuevoArticulo = () => {
     const [articulo, guardarArticulo] = useState({
         nombre: '',
-        iva: 0.0,
-        costo: 0.0,
-        precio: 0.0,
+        iva: '',
+        costo: '',
+        precio: '',
     });
-    const { agregarArticulos } = useContext(ArticulosContext);
+    const { agregarArticulos, mostrarError, errorformulario } = useContext(ArticulosContext);
 
     const { nombre, costo, precio} = articulo;
 
@@ -15,17 +15,14 @@ const NuevoArticulo = () => {
  
     const crearArticulo = e => {
         e.preventDefault();
-        if (nombre.trim() === '' || costo === 0) {
-            console.log('Todos los campos son obligatorios');
-            return;
-        }
+
         articulo.id = 230;
-        articulo.precio = articulo.iva + costo
         console.log(articulo);
         agregarArticulos(articulo);
     }
     return (
-        <form className="formulario">
+        <form className="formulario" onSubmit={crearArticulo}>
+            <h1>Nuevo Articulo</h1>
             <div className="input">
                 <label htmlFor="">Nombre</label>
                 <input
@@ -41,6 +38,8 @@ const NuevoArticulo = () => {
                 <input
                     type="number"
                     name="costo"
+                    min = "0"
+                    step="0.1"
                     onChange={(e) => guardarArticulo({ ...articulo, [e.target.name]: parseFloat(e.target.value) })}
                     value={costo}
                 />
@@ -63,7 +62,7 @@ const NuevoArticulo = () => {
                     type="number"
                     name="precio"
                     onChange={(e) => guardarArticulo({ ...articulo, [e.target.name]: parseFloat(e.target.value) })}
-                    value={precio}
+                    value={ articulo.precio = articulo.iva + costo || precio}
 
                 />
             </div>
@@ -75,7 +74,6 @@ const NuevoArticulo = () => {
                 <input
                     type="submit"
                     value="Crear articulo"
-                    onClick={crearArticulo}
                 />
             </div>
         </form>

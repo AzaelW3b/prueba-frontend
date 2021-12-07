@@ -3,6 +3,8 @@ import ArticulosReducer from './ArticulosReducer';
 import ArticulosContext from './ArticulosContext';
 import {
     AGREGAR_ARTICULOS,
+    ERROR_FORMULARIO,
+    ELIMINAR_ARTICULO
 } from '../../types/';
 const ArticulosState = props => {
 
@@ -10,6 +12,9 @@ const ArticulosState = props => {
         articulos: [
             { id: 1, nombre: 'Jabon', costo: 300.00,precio: 348 }
         ],
+        errorformulario: false,
+        articuloseleccionado:null,
+
     }
     const [state, dispatch] = useReducer(ArticulosReducer, stateInicial);
 
@@ -19,11 +24,27 @@ const ArticulosState = props => {
             payload:articulo,
         })
     }
+
+    const eliminarArticulo = id =>{
+        dispatch({
+            type:ELIMINAR_ARTICULO,
+            payload:id,
+        })
+    }
+
+    const mostrarError = () =>{
+        dispatch({
+            type:ERROR_FORMULARIO,
+        })
+    }
     return (
         <ArticulosContext.Provider
             value={{
                 articulos: state.articulos,
+                errorformulario: state.errorformulario,
                 agregarArticulos,
+                eliminarArticulo,
+                mostrarError
             }}
         >
             {props.children}
