@@ -32,7 +32,13 @@ const NuevoArticulo = () => {
         if (articuloseleccionado === null) {
             articulo.id = uuidv4();
             agregarArticulos(articulo);
-        }else{
+            guardarArticulo({
+                nombre: '',
+                iva: '',
+                costo: '',
+                precio: '',
+            });
+        } else {
             editarArticulo(articulo);
         }
 
