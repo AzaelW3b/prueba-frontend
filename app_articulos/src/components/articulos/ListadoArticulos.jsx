@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
+
 import NuevoArticulo from './NuevoArticulo';
 import ArticulosContext from '../../context/articulos/ArticulosContext';
 import Articulo from './Articulo';
@@ -21,17 +22,22 @@ const ListadoArticulo = () => {
     const abrirModal = () => manipularAbrir(true);
     const cerrarModal = () => manipularAbrir(false);
 
-    const { articulos } = useContext(ArticulosContext);
+    const { articulos,quitarSeleccionado} = useContext(ArticulosContext);
 
+    const mostrarModal = () =>{
+        quitarSeleccionado();
+        abrirModal();
+    }
     return (
         <div className="listado-articulos contenedor">
             <div className="btn-articulo">
                 <button
-                    onClick={abrirModal}
+                    onClick={mostrarModal}
                 >
                     Agregar articulo
                 </button>
                 <Modal
+                    
                     open={abrir}
                     onClose={cerrarModal}
                 >
@@ -45,6 +51,7 @@ const ListadoArticulo = () => {
                 <div className="lista-articulos">
                     {(articulos.map(articulo =>
                         <Articulo
+                            abrirModal ={abrirModal}
                             key={articulo.id}
                             articulo={articulo}
                         />

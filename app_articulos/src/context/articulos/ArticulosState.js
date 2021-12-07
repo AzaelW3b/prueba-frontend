@@ -7,6 +7,7 @@ import {
     ELIMINAR_ARTICULO,
     ARTICULO_ACTUAL,
     EDITAR_ARTICULO,
+    DESMARCAR_ARTICULO,
 } from '../../types/';
 const ArticulosState = props => {
 
@@ -52,6 +53,11 @@ const ArticulosState = props => {
             type:ERROR_FORMULARIO,
         })
     }
+    const quitarSeleccionado = () =>{
+        dispatch({
+            type:DESMARCAR_ARTICULO,
+        })
+    }
     return (
         <ArticulosContext.Provider
             value={{
@@ -62,6 +68,7 @@ const ArticulosState = props => {
                 eliminarArticulo,
                 obtenerArticuloActual,
                 editarArticulo,
+                quitarSeleccionado,
                 mostrarError
             }}
         >

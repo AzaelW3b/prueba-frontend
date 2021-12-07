@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import ArticulosContext from '../../context/articulos/ArticulosContext';
-import NuevoArticulo from './NuevoArticulo';
-const Articulo = ({ articulo }) => {
+const Articulo = ({ articulo, abrirModal }) => {
     const { eliminarArticulo, obtenerArticuloActual } = useContext(ArticulosContext);
 
     const seleccionarArticulo = articulo => {
         obtenerArticuloActual(articulo);
+        abrirModal();
     }
     return (
         <>

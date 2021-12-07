@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import ArticulosContext from '../../context/articulos/ArticulosContext';
 const NuevoArticulo = () => {
     const [articulo, guardarArticulo] = useState({
@@ -20,19 +21,21 @@ const NuevoArticulo = () => {
                 precio: '',
             })
         }
-    }, []);
+    }, [articuloseleccionado]);
 
 
     const { nombre, costo, precio } = articulo;
 
-
-
     const crearArticulo = e => {
         e.preventDefault();
 
-        articulo.id = 230;
-        console.log(articulo);
-        agregarArticulos(articulo);
+        if (articuloseleccionado === null) {
+            articulo.id = uuidv4();
+            agregarArticulos(articulo);
+        }else{
+            editarArticulo(articulo);
+        }
+
     }
     return (
         <form className="formulario" onSubmit={crearArticulo}>

@@ -3,6 +3,7 @@ import {
     ARTICULO_ACTUAL,
     ELIMINAR_ARTICULO,
     EDITAR_ARTICULO,
+    DESMARCAR_ARTICULO,
     ERROR_FORMULARIO,
 } from '../../types/';
 
@@ -27,7 +28,12 @@ const ArticulosReducer = (state, action) =>{
             return {
                 ...state,
                 articulos: state.articulos.map(articulo=> articulo.id === action.payload.id ? action.payload : articulo),
-                
+               
+            }
+        case DESMARCAR_ARTICULO:
+            return{
+                ...state,
+                articuloseleccionado: null,
             }
         case ERROR_FORMULARIO:
             return{
