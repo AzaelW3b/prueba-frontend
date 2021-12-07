@@ -67,7 +67,9 @@ const ListadoArticulo = () => {
                     onClose={cerrarModal}
                 >
                     <Box sx={style}>
-                        <NuevoArticulo />
+                        <NuevoArticulo
+                            cerrarModal ={ cerrarModal}
+                        />
                     </Box>
                 </Modal>
             </div>
@@ -99,7 +101,7 @@ const ListadoArticulo = () => {
                           icon: Edit,
                           iconProps: { style: { fontSize: "54px", color: "green" } },
                           tooltip: 'Editar usuario',
-                          onClick: (event, rowData) => {
+                          onClick: (e,rowData) => {
                             obtenerArticuloActual(rowData);
                             abrirModal();
                                 
@@ -108,7 +110,7 @@ const ListadoArticulo = () => {
                         {
                             icon: DeleteOutline,
                             tooltip: 'Eliminar usuario',
-                            onClick: (event, rowData) => {
+                            onClick: (e,rowData) => {
                                 eliminarArticulo(rowData.id);
                             }
                           },
