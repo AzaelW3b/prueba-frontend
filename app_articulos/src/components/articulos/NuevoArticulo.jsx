@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import ArticulosContext from '../../context/articulos/ArticulosContext';
 const NuevoArticulo = () => {
     const [articulo, guardarArticulo] = useState({
@@ -7,12 +7,26 @@ const NuevoArticulo = () => {
         costo: '',
         precio: '',
     });
-    const { agregarArticulos, mostrarError, errorformulario } = useContext(ArticulosContext);
+    const { agregarArticulos, articuloseleccionado, editarArticulo } = useContext(ArticulosContext);
 
-    const { nombre, costo, precio} = articulo;
+    useEffect(() => {
+        if (articuloseleccionado != null) {
+            guardarArticulo(articuloseleccionado);
+        } else {
+            guardarArticulo({
+                nombre: '',
+                iva: '',
+                costo: '',
+                precio: '',
+            })
+        }
+    }, []);
 
 
- 
+    const { nombre, costo, precio } = articulo;
+
+
+
     const crearArticulo = e => {
         e.preventDefault();
 
@@ -38,7 +52,7 @@ const NuevoArticulo = () => {
                 <input
                     type="number"
                     name="costo"
-                    min = "0"
+                    min="0"
                     step="0.1"
                     onChange={(e) => guardarArticulo({ ...articulo, [e.target.name]: parseFloat(e.target.value) })}
                     value={costo}
@@ -62,7 +76,7 @@ const NuevoArticulo = () => {
                     type="number"
                     name="precio"
                     onChange={(e) => guardarArticulo({ ...articulo, [e.target.name]: parseFloat(e.target.value) })}
-                    value={ articulo.precio = articulo.iva + costo || precio}
+                    value={articulo.precio = articulo.iva + costo || precio}
 
                 />
             </div>

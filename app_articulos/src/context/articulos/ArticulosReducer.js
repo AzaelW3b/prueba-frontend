@@ -1,6 +1,8 @@
 import {
     AGREGAR_ARTICULOS,
+    ARTICULO_ACTUAL,
     ELIMINAR_ARTICULO,
+    EDITAR_ARTICULO,
     ERROR_FORMULARIO,
 } from '../../types/';
 
@@ -15,6 +17,17 @@ const ArticulosReducer = (state, action) =>{
             return{
                 ...state,
                 articulos: state.articulos.filter( articulo => articulo.id !== action.payload)
+            }
+        case ARTICULO_ACTUAL:
+            return{
+                ...state,
+                articuloseleccionado: action.payload
+            }
+        case EDITAR_ARTICULO:
+            return {
+                ...state,
+                articulos: state.articulos.map(articulo=> articulo.id === action.payload.id ? action.payload : articulo),
+                
             }
         case ERROR_FORMULARIO:
             return{

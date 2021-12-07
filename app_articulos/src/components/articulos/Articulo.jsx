@@ -1,17 +1,26 @@
-import React,{useContext} from 'react';
+import React, { useContext } from 'react';
 import ArticulosContext from '../../context/articulos/ArticulosContext';
-const Articulo = ({articulo}) => {
-    const {eliminarArticulo} = useContext(ArticulosContext);
-    return (  
+import NuevoArticulo from './NuevoArticulo';
+const Articulo = ({ articulo }) => {
+    const { eliminarArticulo, obtenerArticuloActual } = useContext(ArticulosContext);
+
+    const seleccionarArticulo = articulo => {
+        obtenerArticuloActual(articulo);
+    }
+    return (
         <>
             <div>
                 <p>{articulo.nombre}</p>
                 <p>{articulo.costo}</p>
                 <p>{articulo.iva}</p>
                 <p>{articulo.precio}</p>
-                <button>Editar</button>
                 <button
-                   onClick={()=>eliminarArticulo(articulo.id)}
+                    onClick={() => seleccionarArticulo(articulo)}
+                >
+                    Editar
+                </button>
+                <button
+                    onClick={() => eliminarArticulo(articulo.id)}
                 >
                     Eliminar
                 </button>
@@ -19,5 +28,5 @@ const Articulo = ({articulo}) => {
         </>
     );
 }
- 
+
 export default Articulo;

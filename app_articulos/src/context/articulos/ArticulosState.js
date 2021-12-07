@@ -4,7 +4,9 @@ import ArticulosContext from './ArticulosContext';
 import {
     AGREGAR_ARTICULOS,
     ERROR_FORMULARIO,
-    ELIMINAR_ARTICULO
+    ELIMINAR_ARTICULO,
+    ARTICULO_ACTUAL,
+    EDITAR_ARTICULO,
 } from '../../types/';
 const ArticulosState = props => {
 
@@ -32,6 +34,19 @@ const ArticulosState = props => {
         })
     }
 
+    const obtenerArticuloActual = articulo =>{
+        dispatch({
+            type:ARTICULO_ACTUAL,
+            payload:articulo,
+        })
+    }
+
+    const editarArticulo = articulo =>{
+        dispatch({
+            type:EDITAR_ARTICULO,
+            payload:articulo,
+        })
+    }
     const mostrarError = () =>{
         dispatch({
             type:ERROR_FORMULARIO,
@@ -42,8 +57,11 @@ const ArticulosState = props => {
             value={{
                 articulos: state.articulos,
                 errorformulario: state.errorformulario,
+                articuloseleccionado:state.articuloseleccionado,
                 agregarArticulos,
                 eliminarArticulo,
+                obtenerArticuloActual,
+                editarArticulo,
                 mostrarError
             }}
         >
