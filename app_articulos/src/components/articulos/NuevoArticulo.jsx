@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import ArticulosContext from '../../context/articulos/ArticulosContext';
 const NuevoArticulo = ({ cerrarModal }) => {
+    const [tipoprecio, guardarTipoPrecio] = useState('')
     const [articulo, guardarArticulo] = useState({
         nombre: '',
         iva: '',
@@ -12,6 +13,10 @@ const NuevoArticulo = ({ cerrarModal }) => {
 
     useEffect(() => {
         if (articuloseleccionado !== null) {
+            console.log(articuloseleccionado);
+            // articuloseleccionado.costo = costo ??  (precio / 1.16);
+            // articuloseleccionado.iva = costo * 0.16 || Math.abs((precio / 1.16) - precio).toFixed(2);
+            // articuloseleccionado.precio = costo ? precio = (costo * 0.16 + costo)  : precio;
             guardarArticulo(articuloseleccionado);
         } else {
             guardarArticulo({
@@ -23,7 +28,9 @@ const NuevoArticulo = ({ cerrarModal }) => {
         }
     }, [articuloseleccionado]);
 
-    let { nombre, costo, precio, iva } = articulo;
+    let { nombre, costo, precio } = articulo;
+
+
 
     const crearArticulo = e => {
         e.preventDefault();
@@ -35,15 +42,12 @@ const NuevoArticulo = ({ cerrarModal }) => {
             mostrarError();
             return;
         }
-        if(!/^(\d|-)?(\d|,)*\.?\d*$/.test(costo)){
-            console.log('solo decimales')
-            return;
-        }
         if (articuloseleccionado === null) {
+            //aqui esta el problema
             articulo.id = uuidv4();
-            // articulo.costo = articulo.costo || (precio / 1.16);
+            articulo.costo = costo ? costo : (precio / 1.16);
             articulo.iva = costo * 0.16 || Math.abs((precio / 1.16) - precio).toFixed(2);
-            articulo.precio = articulo.precio;
+            articulo.precio = precio ? precio : (costo * 0.16 + costo);
             agregarArticulos(articulo);
             guardarArticulo({
                 nombre: '',
@@ -52,6 +56,7 @@ const NuevoArticulo = ({ cerrarModal }) => {
                 precio: '',
             });
         } else {
+            articuloseleccionado.costo = '';
             editarArticulo(articulo);
         }
 
@@ -71,16 +76,42 @@ const NuevoArticulo = ({ cerrarModal }) => {
                 {errorformulario && !nombre ? <p className="mensaje-error">Debes ingresar el nombre del articulo</p> : null}
                 {errorformulario && !/^[a-zA-ZÀ-ÿ\s]{1,30}$/.test(nombre) ? <p className="mensaje-error">El articulo debe tener maximo 30 caracteres y no debe incluir numeros</p> : null}
             </div>
-
             <div className="input">
-                <label htmlFor="">Costo</label>
-                <input
-                    type="number"
-                    name="costo"
-                    onChange={(e) => guardarArticulo({ ...articulo, [e.target.name]: parseFloat(e.target.value) })}
-                    value={costo || (precio / 1.16)}
-                />
+                <label htmlFor="tipo">Tipo de precio</label>
+                <select
+                    id="tipo"
+                    onChange={(e) => guardarTipoPrecio(e.target.value)}
+                >
+                    <option>---Selecciona un tipo de precio---</option>
+                    <option name ="tipo" value="sinIva">Precio sin iva</option>
+                    <option name ="tipo" value="conIva">Precio con iva</option>
+                </select>
             </div>
+            {tipoprecio === "sinIva" ? 
+                <div className="input">
+                    <label htmlFor="">Costo</label>
+                    <input
+                        type="number"
+                        name="costo"
+                        onChange={(e) => guardarArticulo({ ...articulo, [e.target.name]: parseFloat(e.target.value) })}
+                        value={costo ? costo ?? (precio / 1.16) : null}
+                    />
+                </div>
+             : tipoprecio === "conIva" ?
+                (
+                    <div className="input">
+                        <label htmlFor="">precio</label>
+                        <input
+                            type="number"
+                            name="precio"
+                            onChange={(e) => guardarArticulo({ ...articulo, [e.target.name]: parseFloat(e.target.value) })}
+                            value={precio ? precio ?? (costo * 0.16 + costo) : null}
+                        />
+                    </div>
+                )
+                : null}
+
+
             <div className="input">
                 <label htmlFor="">Iva 16%</label>
                 <input
@@ -91,15 +122,7 @@ const NuevoArticulo = ({ cerrarModal }) => {
                     value={costo * 0.16 || Math.abs((precio / 1.16) - precio).toFixed(2)}
                 />
             </div>
-            <div className="input">
-                <label htmlFor="">precio</label>
-                <input
-                    type="number"
-                    name="precio"
-                    onChange={(e) => guardarArticulo({ ...articulo, [e.target.name]: parseFloat(e.target.value) })}
-                    value={precio || (costo * 0.16) + costo}
-                />
-            </div>
+
             <div className="formulario-botones">
                 <input
                     type="button"
@@ -108,7 +131,7 @@ const NuevoArticulo = ({ cerrarModal }) => {
                 />
                 <input
                     type="submit"
-                    value="Crear articulo"
+                    value={articuloseleccionado ? 'Editar articulo' : 'Crear articulo'}
                 />
             </div>
         </form>

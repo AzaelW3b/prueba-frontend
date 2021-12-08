@@ -52,7 +52,6 @@ const ListadoArticulo = () => {
             field:'precio',
             type:'numeric'
         },
-
     ];
     return (
         <div className="listado-articulos contenedor">
@@ -75,7 +74,7 @@ const ListadoArticulo = () => {
                 </Modal>
             </div>
 
-            {articulos.length === 0 ? <p>No hay articulos registrados</p> :
+            {articulos.length === 0 ? <p className="no-articulos">No hay articulos registrados</p> :
                
                 <MaterialTable
                     style={{padding:20, marginTop:20}}
@@ -101,15 +100,13 @@ const ListadoArticulo = () => {
                     localization={{toolbar:{searchTooltip:'Busqueda',
                     searchPlaceholder:'Busca un articulo',}}}
                     actions={[
-                        {
-                          
+                        { 
                           icon: Edit,
-                        //   iconProps: { style: { fontSize: "54px", color: "green" } },
                           tooltip: 'Editar usuario',
                           onClick: (e,rowData) => {
                             obtenerArticuloActual(rowData);
-                            abrirModal();
-                                
+                            console.log(e);
+                            abrirModal();        
                           }
                         },
                         {

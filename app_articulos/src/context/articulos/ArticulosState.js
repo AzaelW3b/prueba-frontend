@@ -12,9 +12,7 @@ import {
 const ArticulosState = props => {
 
     const stateInicial = {
-        articulos: [
-            { id: 1, nombre: 'Jabon',  costo: 300.00, iva:30,   precio: 348 }
-        ],
+        articulos: [],
         errorformulario: false,
         articuloseleccionado:null,
 

@@ -18,3 +18,11 @@
     display:flex;
     justify-content: space-between;
 }
+.no-articulos{
+    font-size: 2rem;
+    text-align: center;
+    @include adaptar(768px){
+        text-align: left;
+        font-size: 3rem;
+    }
+}
