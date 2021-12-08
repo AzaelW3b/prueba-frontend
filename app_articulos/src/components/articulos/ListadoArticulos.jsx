@@ -6,6 +6,7 @@ import ArticulosContext from '../../context/articulos/ArticulosContext';
 import MaterialTable from "@material-table/core";
 import DeleteOutline from '@material-ui/icons/DeleteOutline';
 import Edit from '@material-ui/icons/Edit';
+
 const ListadoArticulo = () => {
 
     const style = {
@@ -75,31 +76,35 @@ const ListadoArticulo = () => {
             </div>
 
             {articulos.length === 0 ? <p>No hay articulos registrados</p> :
+               
                 <MaterialTable
                     style={{padding:20, marginTop:20}}
                     options={{
                         rowStyle:{
-                            fontSize:20,
+                            fontSize:18,
                         },
                         headerStyle:{
-                            fontSize:20,
+                            fontSize:18,
                             backgroundColor:'#2b2d42',
                             color:'#fff'
                         },
                         searchFieldStyle:{
-                            fontSize:20,
-                        }
+                            fontSize:18,
+                        },
+                        exportAllData:true,
+                        paginationType:"stepped",
                         
                     }}
                     columns={columnas}
                     data ={articulos}
-                    title="Listado de Articulos"
+                    title=""
                     localization={{toolbar:{searchTooltip:'Busqueda',
-                    searchPlaceholder:'Busca un articulo'}}}
+                    searchPlaceholder:'Busca un articulo',}}}
                     actions={[
                         {
+                          
                           icon: Edit,
-                          iconProps: { style: { fontSize: "54px", color: "green" } },
+                        //   iconProps: { style: { fontSize: "54px", color: "green" } },
                           tooltip: 'Editar usuario',
                           onClick: (e,rowData) => {
                             obtenerArticuloActual(rowData);
@@ -117,6 +122,7 @@ const ListadoArticulo = () => {
                         
                       ]}
                 >
+                   
                 </MaterialTable>}
         </div>
     );
