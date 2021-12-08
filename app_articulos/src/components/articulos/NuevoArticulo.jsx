@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import ArticulosContext from '../../context/articulos/ArticulosContext';
+import swal from 'sweetalert';
 
 const NuevoArticulo = function ({ cerrarModal }) {
   const [tipoprecio, guardarTipoPrecio] = useState('');
@@ -65,7 +66,9 @@ const NuevoArticulo = function ({ cerrarModal }) {
         costo: "",
         precio: "",
       });
+      swal("Articulo agregado correctamente!", "Presiona Ok para continuar", "success");
     } else {
+      swal("Articulo actualizado correctamente!", "Presiona Ok para continuar", "success");
       editarArticulo(articulo);
     }
   };
