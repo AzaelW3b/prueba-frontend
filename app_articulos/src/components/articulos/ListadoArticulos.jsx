@@ -105,7 +105,6 @@ const ListadoArticulo = () => {
                           tooltip: 'Editar usuario',
                           onClick: (e,rowData) => {
                             obtenerArticuloActual(rowData);
-                            console.log(e);
                             abrirModal();        
                           }
                         },
